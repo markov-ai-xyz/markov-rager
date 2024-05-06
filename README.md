@@ -1,0 +1,1 @@
+## First crack at creating an npm module. Package will be deprecated soon.

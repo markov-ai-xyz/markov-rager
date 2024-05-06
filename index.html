@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>My Website</title>
+</head>
+<body>
+    <div class="vanilla-chatbot"></div>
+    <script type="module" src="src/index.js"></script>
+    <script type="module">
+    const { renderChatBot, createChatBotMessage } = window.vanillaJsChatbot;
+    const inputFieldWidget = (props) => {
+        const {setState} = props;
+
+        const updateInput = (e) => {
+            const value = e.target.value;
+            setState((prev) => ({ ...prev, input: value}));
+        };
+
+        const container = document.createElement("div");
+        const input = document.createElement("input");
+        input.onchange = updateInput;
+        const output = document.createElement("div");
+        output.textContent = props.input;
+
+        container.appendChild(input);
+        container.appendChild(output);
+
+        return container;
+    }
+
+    const rootEl = document.querySelector(".vanilla-chatbot");
+    const config = {
+        botName: "Atom AI",
+        initialMessages: [
+            createChatBotMessage(`Hello world`, { widget: "" }),
+        ],
+        state: {
+            input: "",
+        },
+        widgets: [
+            {
+                widgetName: "inputFieldWidget",
+                widgetFunc: inputFieldWidget,
+                mapStateToProps: ["input"],
+                props: {},
+            },
+        ],
+    };
+
+    class MessageParser {
+        constructor(actionProvider) {
+            this.actionProvider = actionProvider;
+        }
+
+        parse(message) {
+            if (message.includes("hello")) {
+                this.actionProvider.hello();
+            }
+        }
+    }
+
+    class ActionProvider {
+        constructor(createChatBotMessage, setStateFunc, createClientMessage) {
+            this.createChatBotMessage = createChatBotMessage;
+            this.setState = setStateFunc;
+            this.createClientMessage = createClientMessage;
+        }
+
+        hello() {
+            const message = this.createChatBotMessage("Hello from chatbot");
+            this.setState((state) => {
+                return { ...state, messages: [...state.messages, message] };
+            });
+        }
+    }
+
+    renderChatBot(rootEl, config, MessageParser, ActionProvider);
+    </script>
+</body>
+</html>
