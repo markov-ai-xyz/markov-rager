@@ -10,17 +10,43 @@ import { createErrorMessage } from "./chat/errorMessage.js";
 import stateManager from "./state/state.js";
 import WidgetRegistry from "./widgetRegistry/widgetRegistry.js";
 
-let current;
 
-const renderChatBot = (rootEl, config, messageParser, actionProvider) => {
-  if (!config || !messageParser || !actionProvider) {
+class MessageParser {
+  constructor(actionProvider) {
+    this.actionProvider = actionProvider;
+  }
+
+  parse(message) {
+    if (message.includes("hello")) {
+      this.actionProvider.hello();
+    }
+  }
+}
+
+class ActionProvider {
+  constructor(createChatBotMessage, setStateFunc, createClientMessage) {
+    this.createChatBotMessage = createChatBotMessage;
+    this.setState = setStateFunc;
+    this.createClientMessage = createClientMessage;
+  }
+
+  hello() {
+    const message = this.createChatBotMessage("Hello from chatbot");
+    this.setState((state) => {
+      return { ...state, messages: [...state.messages, message] };
+    });
+  }
+}
+
+const renderChatBot = (rootEl, config) => {
+  if (!config) {
     return renderErrorMessage(
       rootEl,
       "I think you forgot to feed me some props. Did you remember to pass a config, a messageparser and an actionprovider?"
     );
   }
 
-  const propsErrors = validateProps(config, messageParser);
+  const propsErrors = validateProps(config, MessageParser);
 
   if (propsErrors.length) {
     const errorMessage = propsErrors.reduce((prev, cur) => {
@@ -37,12 +63,12 @@ const renderChatBot = (rootEl, config, messageParser, actionProvider) => {
   };
   const [state, updater, registerListeners] = stateManager(intialState);
 
-  const actionProviderInstance = new actionProvider(
+  const actionProviderInstance = new ActionProvider(
     createChatBotMessage,
     updater,
     createClientMessage
   );
-  const messageParserInstance = new messageParser(actionProviderInstance);
+  const messageParserInstance = new MessageParser(actionProviderInstance);
 
   const widgetRegistry = new WidgetRegistry(
     updater,
@@ -71,6 +97,8 @@ const renderChatBot = (rootEl, config, messageParser, actionProvider) => {
     widgetRegistry
   );
 };
+
+let current;
 
 const renderErrorMessage = (rootEl, message) => {
   if (current) {
