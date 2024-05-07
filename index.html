@@ -10,7 +10,7 @@
     <div class="vanilla-chatbot"></div>
     <script type="module" src="src/index.js"></script>
     <script type="module">
-    const { renderChatBot, createChatBotMessage } = window.vanillaJsChatbot;
+    const { renderWidget, createChatBotMessage } = window.vanillaJsChatbot;
 
     const rootEl = document.querySelector(".vanilla-chatbot");
     const config = {
@@ -22,7 +22,7 @@
         widgets: [],
     };
 
-    renderChatBot(rootEl, config);
+    renderWidget(rootEl, config);
     </script>
 </body>
 </html>

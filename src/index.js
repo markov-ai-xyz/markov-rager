@@ -38,6 +38,26 @@ class ActionProvider {
   }
 }
 
+const renderWidget = (rootEl, config) => {
+  let chatBotVisible = false;
+
+  const toggleChatBot = () => {
+    if (chatBotVisible) {
+      rootEl.style.display = 'none';
+      chatBotVisible = false;
+    } else {
+      rootEl.style.display = '';
+      renderChatBot(rootEl, config);
+      chatBotVisible = true;
+    }
+  };
+
+  const chatBotButton = document.createElement('button');
+  chatBotButton.innerText = 'Chat with us!';
+  chatBotButton.onclick = toggleChatBot;
+  document.body.appendChild(chatBotButton);
+};
+
 const renderChatBot = (rootEl, config) => {
   if (!config) {
     return renderErrorMessage(
@@ -141,7 +161,7 @@ const render = (
 };
 
 console.log("Start ci");
-window.vanillaJsChatbot = { renderChatBot, createChatBotMessage };
+window.vanillaJsChatbot = { renderWidget, createChatBotMessage };
 
 export { createChatBotMessage };
-export default renderChatBot;
+export default renderWidget;
