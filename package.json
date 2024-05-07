@@ -1,6 +1,6 @@
 {
-  "name": "@foseberg/chatbot-js",
-  "version": "0.0.11",
+  "name": "slm-widget",
+  "version": "2.0.0",
   "description": "Fully customizable chatbot in vanilla js",
   "module": "src/index.js",
   "devDependencies": {
@@ -13,13 +13,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FredrikOseberg/chatbot-js.git"
+    "url": "git+https://github.com/AnantChandra/SLM-Widget.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/FredrikOseberg/chatbot-js/issues"
+    "url": "hhttps://github.com/AnantChandra/SLM-Widget/issues"
   },
-  "homepage": "https://github.com/FredrikOseberg/chatbot-js#readme"
+  "homepage": "https://github.com/AnantChandra/SLM-Widget#readme"
 }
