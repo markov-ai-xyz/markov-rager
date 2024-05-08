@@ -62,6 +62,12 @@ export const scrollIntoView = () => {
 
 export const validateProps = (config, MessageParser) => {
   const errors = [];
+  if (!config.apiKey) {
+    errors.push(
+      "Config must contain property 'apiKey', and it expects it to be a string."
+    );
+  }
+
   if (!config.initialMessages) {
     errors.push(
       "Config must contain property 'initialMessages', and it expects it to be an array of chatbotmessages."

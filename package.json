@@ -1,6 +1,6 @@
 {
   "name": "slm-widget",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Fully customizable chatbot in vanilla js",
   "module": "src/index.js",
   "devDependencies": {
