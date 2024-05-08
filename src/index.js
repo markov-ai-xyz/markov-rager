@@ -46,20 +46,13 @@ const renderChatBot = (rootEl, config) => {
 
   const propsErrors = validateProps(config, MessageParser);
 
-  if (propsErrors.length) {
-    const errorMessage = propsErrors.reduce((prev, cur) => {
-      prev += cur;
-      return prev;
-    }, "");
-
-    return renderErrorMessage(rootEl, errorMessage);
-  }
-
-  const intialState = {
-    messages: [...config.initialMessages],
+  const initialState = {
+    messages: propsErrors.length
+      ? propsErrors.map((propsError) => createChatBotMessage(propsError, {}))
+      : config.initialMessages,
     ...config.state,
-  };
-  const [state, updater, registerListeners] = stateManager(intialState);
+  };  
+  const [state, updater, registerListeners] = stateManager(initialState);
 
   const actionProviderInstance = new ActionProvider(
     createChatBotMessage,
