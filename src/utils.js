@@ -62,11 +62,9 @@ export const scrollIntoView = () => {
 
 export const validateProps = (config, MessageParser) => {
   const errors = [];
-  if (!config.apiKey) {
-    errors.push(
-      "Config must contain property 'apiKey', and it expects it to be a string."
-    );
-  }
+  
+  const apiKeyErrors = validateApiKey(config.apiKey);
+  errors.push(...apiKeyErrors);
 
   if (!config.initialMessages) {
     errors.push(
@@ -80,6 +78,17 @@ export const validateProps = (config, MessageParser) => {
       "Messageparser must implement the method 'parse', please add this method to your object. The signature is parse(message: string)."
     );
   }
+
+  return errors;
+};
+
+export const validateApiKey = (apiKey) => {
+  const errors = [];
+
+  if (!apiKey || typeof apiKey !== 'string') {
+    errors.push("API key is missing or is not a string.");
+  }
+  // TODO: Authorize API key via proxy server
 
   return errors;
 };
