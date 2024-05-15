@@ -4,7 +4,7 @@ class MessageParser {
   }
   
   parse(message) {
-    this.actionProvider.response();
+    this.actionProvider.response(message);
   }
 }
 
