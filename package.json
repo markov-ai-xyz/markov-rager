@@ -1,7 +1,7 @@
 {
-  "name": "slm-widget",
-  "version": "2.0.1",
-  "description": "Fully customizable chatbot in vanilla js",
+  "name": "@markov/widget",
+  "version": "1.0.0",
+  "description": "Widget for interacting with Markov AI",
   "module": "src/index.js",
   "devDependencies": {
     "webpack": "^5.91.0",
@@ -13,13 +13,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AnantChandra/SLM-Widget.git"
+    "url": "git+https://github.com/AnantChandra/MarkovWidget.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Anant Chandra",
   "license": "ISC",
   "bugs": {
-    "url": "hhttps://github.com/AnantChandra/SLM-Widget/issues"
+    "url": "https://github.com/AnantChandra/MarkovWidget.git/issues"
   },
-  "homepage": "https://github.com/AnantChandra/SLM-Widget#readme"
+  "homepage": "https://github.com/AnantChandra/MarkovWidget.git#readme"
 }
