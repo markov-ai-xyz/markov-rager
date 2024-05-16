@@ -8,12 +8,19 @@ class ActionProvider {
   }
 
   response(input) {
+    let chatHistory = [];
+    this.setState((state) => {
+      chatHistory = [...state.messages];
+      chatHistory.pop();
+      return state;
+    });
+
     const payload = {
       "input": input,
-      "chat_history": []
+      "chat_history": chatHistory
     }
 
-    postData('https://markovai.xyz/agent', payload)
+    postData('http://127.0.0.1:5000/agent', payload)
       .then(data => {
         console.log('Data Received:', data);
         const output = data.output;
@@ -27,7 +34,6 @@ class ActionProvider {
 
   populateResponse(message) {
     this.setState((state) => {
-      console.log(...state.messages);
       return { ...state, messages: [...state.messages, message] };
     });
   }
