@@ -15,15 +15,19 @@ class ActionProvider {
 
     postData('https://markovai.xyz/agent', payload)
       .then(data => {
-        console.log('Data received:', data);
+        console.log('Data Received:', data);
+        const output = data.output;
+        const message = this.createChatBotMessage(output);
+        this.populateResponse(message);
       })
       .catch(error => {
         console.error('Error:', error);
       });
-    
-    // TODO: Delete
-    const message = this.createChatBotMessage("Hello from chatbot");
+  }
+
+  populateResponse(message) {
     this.setState((state) => {
+      console.log(...state.messages);
       return { ...state, messages: [...state.messages, message] };
     });
   }
