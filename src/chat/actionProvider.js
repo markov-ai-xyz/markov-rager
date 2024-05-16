@@ -20,7 +20,7 @@ class ActionProvider {
       "chat_history": chatHistory
     }
 
-    postData('http://127.0.0.1:5000/agent', payload)
+    postData('https://www.markovai.xyz/agent', payload)
       .then(data => {
         console.log('Data Received:', data);
         const output = data.output;
