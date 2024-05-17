@@ -124,7 +124,7 @@ const render = (
   rootEl.appendChild(chat);
 
   const inputField = document.querySelector(
-    ".vanilla-chatbot-kit-chat-input"
+    ".markov-chatbot-kit-chat-input"
   );
 
   inputField.focus();
@@ -132,7 +132,7 @@ const render = (
 };
 
 console.log("Start ci");
-window.vanillaJsChatbot = { renderWidget, createChatBotMessage };
+window.markovJsChatbot = { renderWidget, createChatBotMessage };
 
 export { createChatBotMessage };
 export default renderWidget;

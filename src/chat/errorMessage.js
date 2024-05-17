@@ -2,10 +2,10 @@ import { createBotChatMessage } from "./chat.js";
 
 export const createErrorMessage = (message) => {
   const container = document.createElement("div");
-  container.classList.add("vanilla-chatbot-kit-error");
+  container.classList.add("markov-chatbot-kit-error");
 
   const innerContainer = document.createElement("div");
-  innerContainer.classList.add("vanilla-chatbot-kit-error-container");
+  innerContainer.classList.add("markov-chatbot-kit-error-container");
 
   const messageObject = {
     message,

@@ -54,7 +54,7 @@ export const getWidgets = (config) => {
 
 export const scrollIntoView = () => {
   const chatContainer = document.querySelector(
-    ".vanilla-chatbot-kit-chat-message-container"
+    ".markov-chatbot-kit-chat-message-container"
   );
 
   chatContainer.scrollTop = chatContainer.scrollHeight;
