@@ -64,7 +64,9 @@ export const validateProps = (config, MessageParser) => {
   const errors = [];
   
   const apiKeyErrors = validateApiKey(config.apiKey);
-  errors.push(...apiKeyErrors);
+  if (apiKeyErrors.length > 0) {
+    errors.push(...apiKeyErrors);
+  }
 
   if (!config.initialMessages) {
     errors.push(
@@ -82,22 +84,41 @@ export const validateProps = (config, MessageParser) => {
   return errors;
 };
 
-export const validateApiKey = (apiKey) => {
+export const validateApiKey = async (apiKey) => {
   const errors = [];
 
   if (!apiKey || typeof apiKey !== 'string') {
     errors.push("API key is missing or is not a string.");
+    return errors;
   }
-  // TODO: Authorize API key via proxy server
+
+  const response = await fetch('https://www.markovai.xyz/validate-api-key', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-API-KEY': apiKey
+    }
+  });
+
+  if (!response.ok) {
+    errors.push("Invalid API key.");
+    return errors;
+  }
+
+  const data = await response.json();
+  localStorage.setItem('markovJwt', data.token);
 
   return errors;
 };
 
 export async function postData(url, payload) {
+  var token = localStorage.getItem('markovJwt');
+
   const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
     },
     body: JSON.stringify(payload),
   });
