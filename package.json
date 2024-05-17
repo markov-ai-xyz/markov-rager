@@ -1,5 +1,5 @@
 {
-  "name": "@markov-ai/widget",
+  "name": "markov-ai",
   "version": "1.0.0",
   "description": "Widget for interacting with Markov AI",
   "module": "src/index.js",
