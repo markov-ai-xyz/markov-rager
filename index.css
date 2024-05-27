@@ -1,8 +1,23 @@
-.chatbot-button {
+.markov-icon {
   position: fixed;
-  bottom: 20px;
-  right: 20px; 
-  z-index: 9999;
+  bottom: 10px;
+  right: 10px;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  z-index: 999;
+}
+
+.markov-container {
+  position: fixed;
+  bottom: 70px;
+  right: 10px;
+  display: none;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
 .markov-chatbot {
