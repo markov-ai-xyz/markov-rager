@@ -29,8 +29,24 @@ class ActionProvider {
       }.bind(this);
 
       ws.onclose = function() {
-          console.log("WebSocket connection closed");
-      };
+          const latitude = localStorage.getItem('latitude');
+          const longitude = localStorage.getItem('longitude');
+          const payload = {
+            "phone": input,
+            "lat": latitude,
+            "long": longitude,
+          } 
+          postData('https://www.markovai.xyz/location', payload)
+            .then(data => {
+              console.log('Data Received:', data);
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+
+          const message = this.createChatBotMessage("What are your skills?");
+          this.populateResponse(message);
+      }.bind(this);
 
       ws.onerror = function(error) {
           console.error(`WebSocket error: ${error.message}`);

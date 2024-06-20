@@ -47,7 +47,22 @@ const renderWidget = (rootEl, config) => {
       </svg>`;
   
   document.body.appendChild(icon);
+
+  captureCoordinates();
 };
+
+const captureCoordinates = () => {
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      localStorage.setItem('latitude', latitude);
+      localStorage.setItem('longitude', longitude);
+    });
+  } else {
+    console.log("Geolocation not supported by this browser.");
+  }
+}
 
 const renderChatBot = (rootEl, config) => {
   if (!config) {
