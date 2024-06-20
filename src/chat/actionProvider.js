@@ -24,8 +24,7 @@ class ActionProvider {
       };
 
       ws.onmessage = function(event) {
-          const message = this.createChatBotMessage(event.data);
-          this.populateResponse(message);
+          this.populateResponse(event.data);
       }.bind(this);
 
       ws.onclose = function() {
@@ -44,8 +43,7 @@ class ActionProvider {
               console.error('Error:', error);
             });
 
-          const message = this.createChatBotMessage("What are your skills?");
-          this.populateResponse(message);
+          this.populateResponse("What are your skills?");
       }.bind(this);
 
       ws.onerror = function(error) {
@@ -72,9 +70,7 @@ class ActionProvider {
     postData('https://www.markovai.xyz/agent', payload)
       .then(data => {
         console.log('Data Received:', data);
-        const output = data.output;
-        const message = this.createChatBotMessage(output);
-        this.populateResponse(message);
+        this.populateResponse(data.output);
       })
       .catch(error => {
         console.error('Error:', error);
@@ -82,8 +78,9 @@ class ActionProvider {
   }
 
   populateResponse(message) {
+    const chatBotMessage = this.createChatBotMessage(message);
     this.setState((state) => {
-      return { ...state, messages: [...state.messages, message] };
+      return { ...state, messages: [...state.messages, chatBotMessage] };
     });
   }
 }
