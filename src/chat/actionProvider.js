@@ -7,6 +7,39 @@ class ActionProvider {
     this.createClientMessage = createClientMessage;
   }
 
+  handlePhoneNumber(input) {
+    let chatHistory = [];
+    this.setState((state) => {
+      chatHistory = [...state.messages];
+      chatHistory.pop();
+      return state;
+    });
+
+    const wsUrl = "ws://13.202.121.182/authenticate";
+
+    try {
+      const ws = new WebSocket(wsUrl);
+      ws.onopen = function() {
+          ws.send(input);
+      };
+
+      ws.onmessage = function(event) {
+          const message = this.createChatBotMessage(event.data);
+          this.populateResponse(message);
+      }.bind(this);
+
+      ws.onclose = function() {
+          console.log("WebSocket connection closed");
+      };
+
+      ws.onerror = function(error) {
+          console.error(`WebSocket error: ${error.message}`);
+      };
+    } catch (e) {
+        console.error(`WebSocket error: ${e.message}`);
+    }
+  }
+
   response(input) {
     let chatHistory = [];
     this.setState((state) => {

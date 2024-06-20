@@ -4,7 +4,14 @@ class MessageParser {
   }
   
   parse(message) {
-    this.actionProvider.response(message);
+    const phoneNumberPattern = /^[0-9]+$/;
+
+    if (phoneNumberPattern.test(message)) {
+      this.actionProvider.handlePhoneNumber(message);
+    } 
+    else {
+      this.actionProvider.response(message);
+    }
   }
 }
 

@@ -1,6 +1,6 @@
 {
-  "name": "markov-ai",
-  "version": "1.0.1",
+  "name": "erekrut-markov-ai",
+  "version": "1.0.0",
   "description": "Widget for interacting with Markov AI",
   "module": "src/index.js",
   "private": false,
