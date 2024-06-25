@@ -1,7 +1,4 @@
 const stateManager = (initialState) => {
-  // 1. Keep an overview over the state
-  // 2. Expose methods for interacting with the state
-  // 3. Re render our application when state changes
   let state = initialState;
   const listeners = [];
 

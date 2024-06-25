@@ -5,6 +5,7 @@ class ActionProvider {
     this.createChatBotMessage = createChatBotMessage;
     this.setState = setStateFunc;
     this.createClientMessage = createClientMessage;
+    this.phoneNumber = '';
   }
 
   handlePhoneNumber(input) {
@@ -43,7 +44,8 @@ class ActionProvider {
               console.error('Error:', error);
             });
 
-          this.populateResponse("What are your skills?");
+          this.phoneNumber = input;
+          this.populateResponse("What skills are you seeking a job for?");
       }.bind(this);
 
       ws.onerror = function(error) {
@@ -64,7 +66,8 @@ class ActionProvider {
 
     const payload = {
       "input": input,
-      "chat_history": chatHistory
+      "chat_history": chatHistory,
+      "phone_number": this.phoneNumber
     }
 
     postData('https://www.markovai.xyz/agent', payload)
