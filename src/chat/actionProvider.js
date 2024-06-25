@@ -6,6 +6,7 @@ class ActionProvider {
     this.setState = setStateFunc;
     this.createClientMessage = createClientMessage;
     this.phoneNumber = '';
+    this.isNumberConfirmed = false;
   }
 
   handlePhoneNumber(input) {
@@ -25,27 +26,34 @@ class ActionProvider {
       };
 
       ws.onmessage = function(event) {
-          this.populateResponse(event.data);
+          const data = JSON.parse(event.data);
+          this.populateResponse(data.message);
+          if (data.status == "Confirm") {
+            this.isNumberConfirmed = true;
+          }
       }.bind(this);
 
       ws.onclose = function() {
-          const latitude = localStorage.getItem('latitude');
-          const longitude = localStorage.getItem('longitude');
-          const payload = {
-            "phone": input,
-            "lat": latitude,
-            "long": longitude,
-          } 
-          postData('https://www.markovai.xyz/location', payload)
-            .then(data => {
-              console.log('Data Received:', data);
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });
+          if (this.isNumberConfirmed) {
+            const latitude = localStorage.getItem('latitude');
+            const longitude = localStorage.getItem('longitude');
+            const payload = {
+              "phone": input,
+              "lat": latitude,
+              "long": longitude,
+            } 
 
-          this.phoneNumber = input;
-          this.populateResponse("What skills are you seeking a job for?");
+            postData('https://www.markovai.xyz/location', payload)
+              .then(data => {
+                console.log('Data Received:', data);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+
+            this.phoneNumber = input;
+            this.populateResponse("What skills are you seeking a job for?");
+          }
       }.bind(this);
 
       ws.onerror = function(error) {
@@ -70,7 +78,7 @@ class ActionProvider {
       "phone_number": this.phoneNumber
     }
 
-    postData('https://www.markovai.xyz/agent', payload)
+    postData('https://www.markovai.xyz/erekrut-agent', payload)
       .then(data => {
         console.log('Data Received:', data);
         this.populateResponse(data.output);
