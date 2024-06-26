@@ -17,7 +17,7 @@ class ActionProvider {
       return state;
     });
 
-    const wsUrl = "ws://13.202.121.182/authenticate";
+    const wsUrl = "wss://www.markovai.xyz/authenticate";
 
     try {
       const ws = new WebSocket(wsUrl);
