@@ -1,4 +1,4 @@
-## Markov AI Widget
+## Erika Interface
 
 ### Sample Usage
 
@@ -13,7 +13,7 @@
     <title>Chatbot</title>
 </head>
 <body>
-    <div class="markov-ai-widget"></div>
+    <div class="erika-interface"></div>
     <script type="module" src="index.js"></script>
 </body>
 </html>
@@ -23,16 +23,17 @@
 ```
 import renderWidget, { createChatBotMessage } from './node_modules/markov-ai/src/index.js';
 
-const rootEl = document.querySelector(".markov-ai-widget");
+const rootEl = document.querySelector(".erika-interface");
 const config = {
     apiKey: "API_KEY",
-    botName: "Markov",
+    botName: "Erika",
     initialMessages: [
-        createChatBotMessage('Hello there! How can I help you?', { widget: "" }),
+        createChatBotMessage('Hello there, please share your 10 digit phone number to get started!', { widget: "" }),
     ],
     state: {},
     widgets: [],
 };
 
+localStorage.removeItem('markovJwt');
 renderWidget(rootEl, config);
 ```

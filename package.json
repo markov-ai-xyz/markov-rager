@@ -1,7 +1,7 @@
 {
-  "name": "erekrut-markov-ai",
-  "version": "1.0.0",
-  "description": "Widget for interacting with Markov AI",
+  "name": "erika-interface",
+  "version": "1.0.1",
+  "description": "Erekrut's conversational interface",
   "module": "src/index.js",
   "private": false,
   "deprecations": "",
